@@ -7,7 +7,7 @@ from threading import Thread
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 LOGPATH = os.path.join(HERE, "djandro.log")
-
+__version__ = "4.4.0"
 
 class DjandroApp(App):
     def build(self):
