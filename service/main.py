@@ -1,9 +1,28 @@
 import os
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings")
+from os.path import dirname, abspath
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "adl_lrs.settings")
 from colors import add_markup
 from django.core.servers.basehttp import WSGIServer, WSGIRequestHandler, get_internal_wsgi_application
 
+from django.core.management import call_command
 
+SETTINGSDIR = dirname(abspath(__file__))
+PROJECTROOT = dirname(SETTINGSDIR)
+LOG_FOLDER_NAME="logs"
+LOG_FOLDER_PATH=os.path.join(PROJECTROOT, LOG_FOLDER_NAME)
+LOG_FILES = ['celery_tasks.log','django_request.log', 'lrs.log']
+
+if __name__ == "__main__":
+
+    if not os.path.exists(LOG_FOLDER_PATH):
+        os.mkdir(LOG_FOLDER_PATH)
+    for log_file in LOG_FILES:
+        LOG_PATH=os.path.join(LOG_FOLDER_PATH, log_file)
+        if not os.path.exists(LOG_PATH):
+            os.mknod(LOG_PATH)
+
+    
 logpath = os.getenv('PYTHON_SERVICE_ARGUMENT')
 
 
@@ -19,6 +38,10 @@ class RequestHandler(WSGIRequestHandler):
         with open(logpath, 'a') as fh:
             fh.write(kivymarkup + '\n')
             fh.flush()
+
+#Trying this
+#call_command('syncdb', interactive=False)
+
 
 server_address = ('0.0.0.0', 8000)
 wsgi_handler = get_internal_wsgi_application()
