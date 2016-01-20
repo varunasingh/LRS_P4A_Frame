@@ -37,3 +37,5 @@ nosetests.xml
 
 #Buildozer files
 .buildozer
+logs
+
