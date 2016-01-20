@@ -1,5 +1,6 @@
 import os
 from os.path import dirname, abspath
+import shutil
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "adl_lrs.settings")
 from colors import add_markup
@@ -12,6 +13,9 @@ PROJECTROOT = dirname(SETTINGSDIR)
 LOG_FOLDER_NAME="logs"
 LOG_FOLDER_PATH=os.path.join(PROJECTROOT, LOG_FOLDER_NAME)
 LOG_FILES = ['celery_tasks.log','django_request.log', 'lrs.log']
+SYNC_DB_FILE_FOLDER = os.path.join(PROJECTROOT, "service")
+LRS_SYNC_DB_FILE_PATH = os.path.join(SYNC_DB_FILE_FOLDER, "lrs_db.sqlite3")
+NEW_SYNC_DB_FILE_PATH = os.path.join(SYNC_DB_FILE_FOLDER, "db.sqlite3")
 
 if __name__ == "__main__":
 
@@ -21,6 +25,8 @@ if __name__ == "__main__":
         LOG_PATH=os.path.join(LOG_FOLDER_PATH, log_file)
         if not os.path.exists(LOG_PATH):
             os.mknod(LOG_PATH)
+    if not os.path.exists(NEW_SYNC_DB_FILE_PATH):
+	shutil.copy(LRS_SYNC_DB_FILE_PATH, NEW_SYNC_DB_FILE_PATH)
 
     
 logpath = os.getenv('PYTHON_SERVICE_ARGUMENT')
