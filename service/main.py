@@ -49,7 +49,7 @@ class RequestHandler(WSGIRequestHandler):
 #call_command('syncdb', interactive=False)
 
 
-server_address = ('0.0.0.0', 8000)
+server_address = ('0.0.0.0', 8425)
 wsgi_handler = get_internal_wsgi_application()
 httpd = WSGIServer(server_address, RequestHandler)
 httpd.set_app(wsgi_handler)
