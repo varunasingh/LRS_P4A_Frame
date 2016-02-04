@@ -26,7 +26,8 @@ LRS_SYNC_DB_FILE_PATH = os.path.join(SYNC_DB_FILE_FOLDER, "lrs_db.sqlite3")
 NEW_SYNC_DB_FILE_PATH = os.path.join(SYNC_DB_FILE_FOLDER, "db.sqlite3")
 STATEMENT_FORWARD_INTERVAL=180
 RUN_PORT = 8425
-LOCALHOST_NAME = "http://localhost"
+#LOCALHOST_NAME = "http://localhost"
+LOCALHOST_NAME = "http://127.0.0.1"
 FORWARDING_URL = "umapi/forward/"
 
 
@@ -53,13 +54,10 @@ def statement_forward():
     timer.daemon = True
     timer.start()
    
-    print ("Starting statement forwarding request..")
     url=LOCALHOST_NAME + ":" + str(RUN_PORT) + "/" + FORWARDING_URL
 
     try:
-	#print("sleeping for : " + str(brbin))	
-	#time.sleep(5)
-	print("making request to forward..")
+	print("Making Statement Forwarding request ( " + str(url) + ")")
         response = urllib2.urlopen(url)
 
     except urllib2.HTTPError, e:
