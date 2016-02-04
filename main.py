@@ -11,7 +11,7 @@ __version__ = "4.4.0"
 
 class DjandroApp(App):
     def build(self):
-        self.service = AndroidService('Django', 'Django is running')
+        self.service = AndroidService('UstadMobile', 'UstadMobile is running')
         open(LOGPATH, 'w').close()  # Touch the logfile
         self.running = False
         self.logging = False
