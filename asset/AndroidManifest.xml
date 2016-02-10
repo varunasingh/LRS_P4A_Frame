@@ -14,7 +14,7 @@
         android:xlargeScreens="true"
         />
 
-  <application android:hardwareAccelerated="true"
+  <application 
                >
     <meta-data android:name="fullscreen" android:value="1"/>
     <meta-data android:name="wakelock" android:value="0"/>
