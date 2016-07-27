@@ -126,14 +126,13 @@ class RequestHandler(WSGIRequestHandler):
 
         msg = "[%s] %s" % (self.log_date_time_string(), format % args)
         kivymarkup = add_markup(msg, args)
-	if not os.path.exists(logpath):
-		file(logpath, 'w').close()
 	try:
         	with open(logpath, 'a') as fh:
             		fh.write(kivymarkup + '\n')
             		fh.flush()
 	except Exception, lp:
-		print("Cannot open logpath. Exception: " + str(lp))
+		#print("Cannot open logpath. Exception: " + str(lp))
+		pass #Not interested in logging requests at the moment
 
 #Trying this
 #call_command('syncdb', interactive=False)
