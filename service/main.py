@@ -57,34 +57,57 @@ def statement_forward():
     url=LOCALHOST_NAME + ":" + str(RUN_PORT) + "/" + FORWARDING_URL
 
     try:
-	print("Making Statement Forwarding request ( " + str(url) + ")")
+	print("statement_forward(): Making Statement Forwarding request ( " + str(url) + ")")
         response = urllib2.urlopen(url)
 
     except urllib2.HTTPError, e:
-        print('HTTPError = ' + str(e.code))
-        response_code = e.code
-	print(response_code)
-	response.close()
+	print("statement_forward(): HTTPError = " + str(e) )
+	try:
+		print("statement_forward(): Code: " + str(e.code))
+		print("statement_forward(): Response code: " + str(e.code))
+	except:
+		print("statement_forward(): Cannot get response code after HTTP Error.")
+	try:
+		response.close()
+	except:
+		print("statement_forward(): Cannot close non existing response.")
     except urllib2.URLError, e:
-        print('URLError = ' + str(e.reason))
+        print('statement_forward(): URLError = ' + str(e.reason) + " (Maybe it JUST started)")
+	try:
+                response.close()
+        except:
+                print("statement_forward(): Cannot close non existing response.")
 
     except httplib.HTTPException, e:
-        print('HTTPException')
-	response.close()
+        print('statement_forward(): HTTPException ' + str(e) )
+	try:
+                response.close()
+        except:
+                print("statement_forward(): Cannot close non existing response.")
     except Exception, e:
-        print('generic exception: ' + str(e) )
-	response.close()
+        print('statement_forward(): generic exception: ' + str(e) )
+	try:
+                response.close()
+        except:
+                print("statement_forward(): Cannot close non existing response.")
     else:
-	print(response.code)
-	response.close()
+	try:
+		print("statement_forward(): No exception. Response: " + str(response.code))
+        except:
+                print("statement_forward(): Something non exception went wrong in resposne")
 
 
     try:
-        resposne_code = response.getcode();
+        resposne_code = response.code;
         print(response_code)
     except Exception, re:
 	#print("resposne code exception: " + str(re))
 	pass
+    
+    try:
+    	response.close()
+    except:
+        print("statement_forward(): Cannot close non existing response.")
 
     """
     timer = threading.Timer(10.0, statement_forward)
@@ -103,13 +126,18 @@ class RequestHandler(WSGIRequestHandler):
 
         msg = "[%s] %s" % (self.log_date_time_string(), format % args)
         kivymarkup = add_markup(msg, args)
-        with open(logpath, 'a') as fh:
-            fh.write(kivymarkup + '\n')
-            fh.flush()
+	try:
+        	with open(logpath, 'a') as fh:
+            		fh.write(kivymarkup + '\n')
+            		fh.flush()
+	except Exception, lp:
+		print("Cannot open logpath. Exception: " + str(lp))
 
 #Trying this
 #call_command('syncdb', interactive=False)
 
+
+print("Main: Starting statement_forward() to run every " + str(STATEMENT_FORWARD_INTERVAL) + " seconds.")
 statement_forward()
 server_address = ('0.0.0.0', RUN_PORT)
 wsgi_handler = get_internal_wsgi_application()
