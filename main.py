@@ -9,6 +9,8 @@ HERE = os.path.abspath(os.path.dirname(__file__))
 LOGPATH = os.path.join(HERE, "djandro.log")
 __version__ = "4.4.0"
 
+print("main.py: Python: Aloha!")
+
 class DjandroApp(App):
     def build(self):
         self.service = AndroidService('UstadMobile', 'UstadMobile is running')
@@ -62,4 +64,5 @@ class DjandroApp(App):
             self.start_logging()
 
 if __name__ == '__main__':
+    print("main.py: Python: Starting tp run django in p4a..")
     DjandroApp().run()
