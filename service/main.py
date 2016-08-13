@@ -1,6 +1,14 @@
 import os
 from os.path import dirname, abspath
 import shutil
+import sys
+
+root_path = os.path.abspath(os.path.split(__file__)[0])
+sys.path.insert(0, os.path.join(root_path, 'adl_lrs'))
+sys.path.insert(0, root_path)
+
+print("service/main.py: root_path: " + root_path)
+print("service.main.py: sys.path: " + str(sys.path))
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "adl_lrs.settings")
 #from colors import add_markup
