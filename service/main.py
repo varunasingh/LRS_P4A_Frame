@@ -3,7 +3,7 @@ from os.path import dirname, abspath
 import shutil
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "adl_lrs.settings")
-from colors import add_markup
+#from colors import add_markup
 from django.core.servers.basehttp import WSGIServer, WSGIRequestHandler, get_internal_wsgi_application
 
 from django.core.management import call_command
@@ -125,6 +125,8 @@ class RequestHandler(WSGIRequestHandler):
             return
 
         msg = "[%s] %s" % (self.log_date_time_string(), format % args)
+	#Ignoring logging for now (colors isn't available)
+	"""
         kivymarkup = add_markup(msg, args)
 	try:
         	with open(logpath, 'a') as fh:
@@ -133,6 +135,7 @@ class RequestHandler(WSGIRequestHandler):
 	except Exception, lp:
 		#print("Cannot open logpath. Exception: " + str(lp))
 		pass #Not interested in logging requests at the moment
+	"""
 
 #Trying this
 #call_command('syncdb', interactive=False)
