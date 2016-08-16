@@ -33,7 +33,7 @@ version.filename = %(source.dir)s/main.py
 
 # (list) Application requirements
 # comma seperated e.g. requirements = sqlite3,kivy
-requirements = kivy,django,django-endless-pagination,south,django-jsonify,django-extensions,shortuuid,django-jsonfield,isodate,oauth2,celery,openssl,pycrypto,rfc3987,bencode
+requirements = kivy,django==1.6.1,django-endless-pagination,south,django-jsonify,django-extensions,shortuuid,django-jsonfield,isodate,oauth2,celery,openssl,pycrypto,rfc3987,bencode,wsgiref,sqlite3
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
@@ -72,26 +72,26 @@ android.permissions = INTERNET
 #android.sdk = 20
 
 # (str) Android NDK version to use
-#android.ndk = 9c
+android.ndk = NDK_VER
 
 # (bool) Use --private data storage (True) or --dir public storage (False)
 #android.private_storage = True
 android.public_storage = True
 
 # (str) Android NDK directory (if empty, it will be automatically downloaded.)
-#android.ndk_path =
+android.ndk_path = NDK_PATH
 
 # (str) Android SDK directory (if empty, it will be automatically downloaded.)
-#android.sdk_path =
+android.sdk_path = SDK_PATH
 
 # (str) ANT directory (if empty, it will be automatically downloaded.)
-#android.ant_path =
+#android.ant_path = /usr/bin/
 
 # (str) python-for-android git clone directory (if empty, it will be automatically cloned from github)
 #android.p4a_dir =
 
 # (list) python-for-android whitelist
-#android.p4a_whitelist =
+android.p4a_whitelist = wsgiref,sqlite3,unittest
 
 # (str) Android entry point, default is ok for Kivy-based app
 #android.entrypoint = org.renpy.android.PythonActivity
